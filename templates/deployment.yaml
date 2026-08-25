@@ -1,0 +1,45 @@
+
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+   namespace: roboshop 
+   name: shipping 
+   labels:
+     project: roboshop 
+     component: shipping
+     env: dev 
+     tier: backend 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+       project: roboshop 
+       component: shipping
+       env: dev 
+       tier: backend 
+  template:
+    metadata:
+      labels:
+        project: roboshop 
+        component: shipping
+        env: dev 
+        tier: backend  
+    spec:
+      containers:
+      - name: shipping 
+        image: "{{ .Values.deployment.imageURL}}:{{ .Values.deployment.imageVersion}}"
+        envFrom:
+        - configMapRef:
+           name: shipping
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+
+
+
+    
+      

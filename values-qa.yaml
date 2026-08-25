@@ -1,0 +1,3 @@
+deployment:
+  imageURL: srinunaik208/shipping
+  imageVersion: v5

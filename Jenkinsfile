@@ -41,7 +41,10 @@ pipeline {
                         }
                         else {
                             echo "deployment is failed, start proceding with rollback"
+                            sh """
                             helm rollback ${component} -n ${project}
+                            sleep 10
+                            """
                             def RollbackStatus = sh(returnStdout: true, script: 'kubectl rollout status deployment/${component} --timeout=30s -n ${project} || echo FAILED ').trim();
                             if (RollbackStatus.contains('successfully rolled out'))
                             {

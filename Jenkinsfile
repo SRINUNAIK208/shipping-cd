@@ -22,7 +22,7 @@ pipeline {
             steps{
                 withAWS(credentials: 'aws-cred', region: 'us-east-1'){
                     sh """
-                      aws eks update-kubeconfig --region ${region} -n ${project}
+                      aws eks update-kubeconfig --region ${region} --name ${project}
                       kubectl get nodes
                       sed -i "s/IMAGE_VERSION/${params.appVersion}/g" values-${params.deploy}.yaml
                       helm upgrade --install ${component} -f values-${params.deploy}.yaml -n ${project}

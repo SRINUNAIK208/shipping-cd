@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: shipping
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://bitnami.github.io/sealed-secrets
+    targetRevision: main
+    path: .
+    helm:
+      releaseName: shipping
+      valueFiles:
+      - values-qa.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: kubeseal
+  syncPolicy:
+  automated: # Enable automated synchronization
+    prune: true # Delete resources that are no longer in Git
+    selfHeal: true # Revert changes made manually in the cluster to match Git
+  syncOptions:
+    - CreateNamespace=true

@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://bitnami.github.io/sealed-secrets
+    repoURL: https://github.com/SRINUNAIK208/shipping-cd.git
     targetRevision: main
     path: .
     helm:
